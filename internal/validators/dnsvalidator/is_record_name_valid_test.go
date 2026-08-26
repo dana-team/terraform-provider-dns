@@ -1,4 +1,4 @@
-// Copyright (c) HashiCorp, Inc.
+// Copyright IBM Corp. 2017, 2026
 // SPDX-License-Identifier: MPL-2.0
 
 package dnsvalidator
@@ -52,7 +52,6 @@ func TestIsRecordNameValid(t *testing.T) {
 	}
 
 	for name, test := range tests {
-		name, test := name, test
 		t.Run(name, func(t *testing.T) {
 			request := validator.StringRequest{
 				Path:           path.Root("test"),

@@ -1,4 +1,4 @@
-// Copyright (c) HashiCorp, Inc.
+// Copyright IBM Corp. 2017, 2026
 // SPDX-License-Identifier: MPL-2.0
 
 package provider
@@ -119,7 +119,7 @@ func TestAccProvider_Update_Gssapi_Realm(t *testing.T) {
 
 				data "dns_a_record_set" "test" {
 					# Same host as data source testing
-					host = "terraform-provider-dns-a.hashicorptest.com"
+					host = "a.dns.tfacc.hashicorptest.com"
 				}
 				`,
 				Check: resource.ComposeAggregateTestCheckFunc(
@@ -144,7 +144,7 @@ func TestAccProvider_Update_Server_Config(t *testing.T) {
 
 				data "dns_a_record_set" "test" {
 					# Same host as data source testing
-					host = "terraform-provider-dns-a.hashicorptest.com"
+					host = "a.dns.tfacc.hashicorptest.com"
 				}
 				`,
 				Check: resource.ComposeAggregateTestCheckFunc(
@@ -165,7 +165,7 @@ func TestAccProvider_Update_Server_Env(t *testing.T) {
 				Config: `
 				data "dns_a_record_set" "test" {
 					# Same host as data source testing
-					host = "terraform-provider-dns-a.hashicorptest.com"
+					host = "a.dns.tfacc.hashicorptest.com"
 				}
 				`,
 				Check: resource.ComposeAggregateTestCheckFunc(
@@ -190,7 +190,7 @@ func TestAccProvider_Update_Timeout_Config(t *testing.T) {
 
 				data "dns_a_record_set" "test" {
 					# Same host as data source testing
-					host = "terraform-provider-dns-a.hashicorptest.com"
+					host = "a.dns.tfacc.hashicorptest.com"
 				}
 				`,
 				Check: resource.ComposeAggregateTestCheckFunc(
@@ -211,7 +211,7 @@ func TestAccProvider_Update_Timeout_Env(t *testing.T) {
 				Config: `
 				data "dns_a_record_set" "test" {
 					# Same host as data source testing
-					host = "terraform-provider-dns-a.hashicorptest.com"
+					host = "a.dns.tfacc.hashicorptest.com"
 				}
 				`,
 				Check: resource.ComposeAggregateTestCheckFunc(
@@ -505,4 +505,31 @@ func testRemoveRecord(t *testing.T, recordType string, recordName string) {
 	if resp.Rcode != dns.RcodeSuccess {
 		t.Fatalf("Error deleting DNS record (%s): %v", rrStr, resp.Rcode)
 	}
+}
+
+func TestAccProvider_Recursive_Default(t *testing.T) {
+	resource.ParallelTest(t, resource.TestCase{
+		ProtoV5ProviderFactories: testProtoV5ProviderFactories,
+		Steps: []resource.TestStep{
+			{
+				Config: `
+				provider "dns" {
+					update {
+						server = "127.0.0.1"
+					}
+				}`,
+				Check: func(s *terraform.State) error {
+					client := dnsClient
+					if client == nil {
+						t.Fatal("dnsClient is not initialized")
+						return nil
+					}
+					if client.recursive != false {
+						t.Fatalf("expected recursive to be false by default, got %v", client.recursive)
+					}
+					return nil
+				},
+			},
+		},
+	})
 }

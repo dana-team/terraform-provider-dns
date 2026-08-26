@@ -1,4 +1,4 @@
-// Copyright (c) HashiCorp, Inc.
+// Copyright IBM Corp. 2017, 2026
 // SPDX-License-Identifier: MPL-2.0
 
 package provider
@@ -18,11 +18,11 @@ func TestAccDataDnsSRVRecordSet_Basic(t *testing.T) {
 			{
 				Config: `
 data "dns_srv_record_set" "test" {
-  service = "_sip._tls.hashicorptest.com"
+  service = "_sip._tls.dns.tfacc.hashicorptest.com"
 }
 `,
 				Check: resource.ComposeAggregateTestCheckFunc(
-					resource.TestCheckResourceAttr(recordName, "id", "_sip._tls.hashicorptest.com"),
+					resource.TestCheckResourceAttr(recordName, "id", "_sip._tls.dns.tfacc.hashicorptest.com"),
 					resource.TestCheckResourceAttr(recordName, "srv.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(recordName, "srv.*", map[string]string{
 						"port":     "443",

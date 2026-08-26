@@ -1,4 +1,4 @@
-// Copyright (c) HashiCorp, Inc.
+// Copyright IBM Corp. 2017, 2026
 // SPDX-License-Identifier: MPL-2.0
 
 package provider
@@ -31,6 +31,7 @@ type Config struct {
 	username  string
 	password  string
 	keytab    string
+	recursive bool
 }
 
 type DNSClient struct {
@@ -46,6 +47,7 @@ type DNSClient struct {
 	username  string
 	password  string
 	keytab    string
+	recursive bool
 }
 
 // Client configures and returns a fully initialized DNSClient.
@@ -75,6 +77,7 @@ func (c *Config) Client(ctx context.Context) (interface{}, error) {
 	client.username = c.username
 	client.password = c.password
 	client.keytab = c.keytab
+	client.recursive = c.recursive
 	if !c.gssapi && c.keyname != "" {
 		if !dns.IsFqdn(c.keyname) {
 			return nil, fmt.Errorf("Error configuring provider: \"key_name\" should be fully-qualified")

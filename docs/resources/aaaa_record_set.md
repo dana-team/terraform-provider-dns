@@ -17,8 +17,8 @@ resource "dns_aaaa_record_set" "www" {
   zone = "example.com."
   name = "www"
   addresses = [
-    "fdd5:e282:43b8:5303:dead:beef:cafe:babe",
-    "fdd5:e282:43b8:5303:cafe:babe:dead:beef",
+    "fdd5:e282:43b8:5303:1234:5678:cafe:9012",
+    "fdd5:e282:43b8:5303:cafe:9012:1234:5678",
   ]
   ttl = 300
 }
@@ -44,6 +44,8 @@ resource "dns_aaaa_record_set" "www" {
 ## Import
 
 Import is supported using the following syntax:
+
+The [`terraform import` command](https://developer.hashicorp.com/terraform/cli/commands/import) can be used, for example:
 
 ```shell
 # Import using the FQDN.

@@ -1,4 +1,4 @@
-// Copyright (c) HashiCorp, Inc.
+// Copyright IBM Corp. 2017, 2026
 // SPDX-License-Identifier: MPL-2.0
 
 package provider
@@ -18,13 +18,13 @@ func TestAccDataDnsAAAARecordSet_Basic(t *testing.T) {
 			{
 				Config: `
 data "dns_aaaa_record_set" "test" {
-  host = "terraform-provider-dns-aaaa.hashicorptest.com"
+  host = "aaaa.dns.tfacc.hashicorptest.com"
 }
 `,
 				Check: resource.ComposeAggregateTestCheckFunc(
 					resource.TestCheckResourceAttr(recordName, "addrs.#", "1"),
 					resource.TestCheckTypeSetElemAttr(recordName, "addrs.*", "::1"),
-					resource.TestCheckResourceAttr(recordName, "id", "terraform-provider-dns-aaaa.hashicorptest.com"),
+					resource.TestCheckResourceAttr(recordName, "id", "aaaa.dns.tfacc.hashicorptest.com"),
 				),
 			},
 		},

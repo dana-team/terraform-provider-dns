@@ -1,3 +1,27 @@
+## 3.6.1 (May 20, 2026)
+
+BUG FIXES:
+
+* Update github.com/bodgit/tsig to v1.3.1 to fix TKEY exchange failures ([#642](https://github.com/hashicorp/terraform-provider-dns/issues/642))
+
+## 3.6.0 (May 12, 2026)
+
+ENHANCEMENTS:
+
+* Added linux/s390x build target for IBM Z platform support ([#639](https://github.com/hashicorp/terraform-provider-dns/issues/639))
+
+## 3.5.0 (January 28, 2026)
+
+ENHANCEMENTS:
+
+* * provider: add `recursive` configuration option for DNS read queries to control the RD flag ([#552](https://github.com/hashicorp/terraform-provider-dns/issues/552))
+
+## 3.4.3 (April 29, 2025)
+
+NOTES:
+
+* Update dependencies ([#480](https://github.com/hashicorp/terraform-provider-dns/issues/480))
+
 ## 3.4.2 (September 10, 2024)
 
 NOTES:
